@@ -5,8 +5,8 @@ namespace GerenciadorLivros.API.Persistence
 {
     public class BookDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; } 
-        public DbSet<User> Users { get; set; } 
+        public DbSet<Book> Books { get; set; }   // tabela Books
+        public DbSet<User> Users { get; set; }   // tabela Users
 
         public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
 
@@ -21,12 +21,9 @@ namespace GerenciadorLivros.API.Persistence
                 e.Property(de => de.Author)
                     .HasMaxLength(200)              
                     .HasColumnType("varchar(200)"); 
-
-                e.Property(de => de.StartDate)
-                    .HasColumnName("Start_Date");   
-
-                e.Property(de => de.EndDate)
-                    .HasColumnName("End_Date");   
+                
+                e.Property(de => de.YearPublicacion)
+                    .HasColumnName("Year_Publication");   
 
                 e.HasMany(de => de.Speakers)  
                     .WithOne()        

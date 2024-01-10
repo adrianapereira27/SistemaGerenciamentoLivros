@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciadorLivros.APP", "GerenciadorLivros.App\GerenciadorLivros.APP.csproj", "{779AB857-571A-4A93-8119-AAC73E687E71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorLivros.API", "GerenciadorLivros.API\GerenciadorLivros.API.csproj", "{2CED7740-6AAC-4387-8E43-926FA2FE4111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciadorLivros.API", "GerenciadorLivros.API\GerenciadorLivros.API.csproj", "{2CED7740-6AAC-4387-8E43-926FA2FE4111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorLivros.Core", "GerenciadorLivros.Core\GerenciadorLivros.Core.csproj", "{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2CED7740-6AAC-4387-8E43-926FA2FE4111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CED7740-6AAC-4387-8E43-926FA2FE4111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CED7740-6AAC-4387-8E43-926FA2FE4111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
