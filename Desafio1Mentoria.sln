@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciadorLivros.API", "Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorLivros.Core", "GerenciadorLivros.Core\GerenciadorLivros.Core.csproj", "{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorLivros.Infrastructure", "GerenciadorLivros.Infrastructure\GerenciadorLivros.Infrastructure.csproj", "{178F6BD5-BEFE-4029-AA14-C497E772004D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorLivros.Application", "GerenciadorLivros.Application\GerenciadorLivros.Application.csproj", "{00133B87-AD17-4FB7-A439-0C04531162D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3319A26-4ED4-4815-B8BE-BD99EC7D1A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178F6BD5-BEFE-4029-AA14-C497E772004D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178F6BD5-BEFE-4029-AA14-C497E772004D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178F6BD5-BEFE-4029-AA14-C497E772004D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178F6BD5-BEFE-4029-AA14-C497E772004D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00133B87-AD17-4FB7-A439-0C04531162D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00133B87-AD17-4FB7-A439-0C04531162D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00133B87-AD17-4FB7-A439-0C04531162D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00133B87-AD17-4FB7-A439-0C04531162D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

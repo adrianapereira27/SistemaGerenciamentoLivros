@@ -1,4 +1,5 @@
-﻿using GerenciadorLivros.API.Models;
+﻿using GerenciadorLivros.Application.InputModels;
+using GerenciadorLivros.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorLivros.API.Controllers
@@ -6,46 +7,54 @@ namespace GerenciadorLivros.API.Controllers
     [Route("api/books")]
     public class BooksController : ControllerBase
     {
+        private readonly IBookService _bookService;
+        public BooksController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
+
+        // api/books?query=net core
         [HttpGet]
         public IActionResult Get(string query)
         {
-            return Ok();
+            var books = _bookService.GetAll(query);
+
+            return Ok(books);
         }
 
+        // api/books/3
         [HttpGet("{id}")]
-        public IActionResult GetById(int id) 
+        public IActionResult GetById(int id)
         {
-            // return NotFound();
+            var book = _bookService.GetById(id);
 
+            if (book == null)
+            {
+                return NotFound();
+            }
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] BookViewModel bookModel)
+        public IActionResult Post([FromBody] NewBookInputModel bookModel)
         {
             if (bookModel.Title.Length > 50)
             {
                 return BadRequest();
             }
+            var id = _bookService.Create(bookModel);
 
-            return CreatedAtAction(nameof(GetById), new {id = bookModel.Id}, bookModel);
+            return CreatedAtAction(nameof(GetById), new { id = id }, bookModel);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] BookInputModel bookInputModel)
-        {
-            if(bookInputModel.Title.Length > 50){
-                return BadRequest();
-            }
-            return NoContent();
-        }
-
+        // api/books/2   DELETE
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            _bookService.Delete(id);
 
             return NoContent();
         }
-                
+
     }
 }

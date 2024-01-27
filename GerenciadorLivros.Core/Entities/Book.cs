@@ -1,4 +1,5 @@
 ﻿using GerenciadorLivros.Core.Entities;
+using GerenciadorLivros.Core.Enums;
 
 namespace GerenciadorLivros.API.Entities
 {
@@ -10,20 +11,21 @@ namespace GerenciadorLivros.API.Entities
             Author = author;
             ISBN = iSBN;
             YearPublicacion = yearPublicacion;
-
-            IsOnLoan = false;
+            Status = BookStatusEnum.Normal;
         }
 
         public string Title { get; private set; }
         public string Author { get; private set; }
         public string ISBN { get; private set; }
         public int YearPublicacion { get; private set; }  
-        public bool IsOnLoan { get; private set; }  
-                
-        
-        public void UpdateOnLoan(bool isOnLoan)     
+        public BookStatusEnum Status { get; private set; }
+
+        public void Delete()
         {
-            IsOnLoan = isOnLoan;
+            if (Status == BookStatusEnum.Normal)
+            {
+                Status = BookStatusEnum.Deleted;
+            }
         }
 
     }        

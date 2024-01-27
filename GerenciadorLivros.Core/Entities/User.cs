@@ -7,16 +7,17 @@ namespace GerenciadorLivros.API.Entities
         public User(string name, string email)
         {
             Name = name;
-            Email = email;
-
+            Email = email; 
             Active = true;
-            Loans = new List<UserLoans>();
+
+            Reader = new List<Loan>();            
         }
 
         public string Name { get; private set; }
-        public string Email { get; private set; }
+        public string Email { get; private set; }       
         public bool Active { get; set; }
 
-        public List<UserLoans> Loans { get; private set; }
+        public List<Loan> Reader { get; private set; }
+        
     }
 }
