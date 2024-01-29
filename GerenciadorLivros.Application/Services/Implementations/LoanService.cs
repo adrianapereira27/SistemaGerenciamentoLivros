@@ -1,18 +1,23 @@
-﻿using GerenciadorLivros.API.Entities;
+﻿using Dapper;
+using GerenciadorLivros.API.Entities;
 using GerenciadorLivros.Application.InputModels;
 using GerenciadorLivros.Application.Services.Interfaces;
 using GerenciadorLivros.Application.ViewModels;
 using GerenciadorLivros.Infrastructure.Persistence;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace GerenciadorLivros.Application.Services.Implementations
 {
     public class LoanService : ILoanService
     {
         private readonly GerenciadorLivrosDbContext _dbContext;
-        public LoanService(GerenciadorLivrosDbContext dbContext)
+        private readonly string _connectionString;
+        public LoanService(GerenciadorLivrosDbContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _connectionString = configuration.GetConnectionString("LibraryCs");  // usado no Dapper
         }
 
         public int Create(NewLoanInputModel inputModel)
@@ -28,12 +33,23 @@ namespace GerenciadorLivros.Application.Services.Implementations
 
         public List<LoanViewModel> GetAll(string query)
         {
-            var loans = _dbContext.Loans;
+            // Dapper
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+
+                var script = "SELECT Id, LoanDate, LoanReturnDate FROM Loans";
+
+                return sqlConnection.Query<LoanViewModel>(script).ToList();
+            }
+
+            // EntityFrameworkCore
+            /*var loans = _dbContext.Loans;
 
             var loansViewModel = loans.Select(l => new LoanViewModel(l.Id, l.LoanDate, l.LoanReturnDate))
                 .ToList();
 
-            return loansViewModel;
+            return loansViewModel;*/
         }
 
         public LoanDetailsViewModel GetById(int id)
