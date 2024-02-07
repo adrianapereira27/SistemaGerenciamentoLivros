@@ -1,10 +1,5 @@
-﻿using Dapper;
-using GerenciadorLivros.API.Entities;
-using GerenciadorLivros.Application.InputModels;
-using GerenciadorLivros.Application.Services.Interfaces;
-using GerenciadorLivros.Application.ViewModels;
+﻿using GerenciadorLivros.Application.Services.Interfaces;
 using GerenciadorLivros.Infrastructure.Persistence;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -20,7 +15,9 @@ namespace GerenciadorLivros.Application.Services.Implementations
             _connectionString = configuration.GetConnectionString("LibraryCs");  // usado no Dapper
         }
 
-        public int Create(NewLoanInputModel inputModel)
+        // comentado, porque será usado no padrão CQRS (MediatR)
+
+        /*public int Create(NewLoanInputModel inputModel)
         {
             var loan = new Loan(inputModel.idUser, inputModel.idBook);
             
@@ -44,12 +41,12 @@ namespace GerenciadorLivros.Application.Services.Implementations
             }
 
             // EntityFrameworkCore
-            /*var loans = _dbContext.Loans;
+            //var loans = _dbContext.Loans;
 
-            var loansViewModel = loans.Select(l => new LoanViewModel(l.Id, l.LoanDate, l.LoanReturnDate))
-                .ToList();
+            //var loansViewModel = loans.Select(l => new LoanViewModel(l.Id, l.LoanDate, l.LoanReturnDate))
+            //    .ToList();
 
-            return loansViewModel;*/
+            //return loansViewModel;
         }
 
         public LoanDetailsViewModel GetById(int id)
@@ -80,6 +77,6 @@ namespace GerenciadorLivros.Application.Services.Implementations
                 loan.Update();
                 _dbContext.SaveChanges();
             }
-        }
+        }*/
     }
 }

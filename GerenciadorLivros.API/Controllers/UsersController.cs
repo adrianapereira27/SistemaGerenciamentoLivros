@@ -1,6 +1,9 @@
 ﻿using GerenciadorLivros.API.Models;
+using GerenciadorLivros.Application.Commands.InsertUser;
 using GerenciadorLivros.Application.InputModels;
+using GerenciadorLivros.Application.Queries.GetUserById;
 using GerenciadorLivros.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorLivros.API.Controllers
@@ -8,16 +11,24 @@ namespace GerenciadorLivros.API.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {        
-        private readonly IUserService _userService;
+        /*private readonly IUserService _userService;
         public UsersController(IUserService userService)
         {
             _userService = userService;
+        }*/
+
+        private readonly IMediator _mediator;
+        public UsersController(IMediator mediator)
+        {
+            _mediator = mediator;
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var user = _userService.GetById(id);
+            var query = new GetUserByIdQuery(id);
+
+            var user = await _mediator.Send(query);
             if (user == null)
             {
                 return NotFound();
@@ -27,16 +38,16 @@ namespace GerenciadorLivros.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] NewUserInputModel userModel)
+        public async Task<IActionResult> Post([FromBody] InsertUserCommand command)
         {
-            if (userModel.Name.Length > 50)
+            if (command.Name.Length > 50)
             {
                 return BadRequest();
             }
 
-            var id = _userService.Create(userModel);
+            var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id = id }, userModel);
+            return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
         // api/users/2

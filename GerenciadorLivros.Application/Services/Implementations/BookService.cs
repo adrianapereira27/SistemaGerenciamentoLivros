@@ -1,7 +1,4 @@
-﻿using GerenciadorLivros.API.Entities;
-using GerenciadorLivros.Application.InputModels;
-using GerenciadorLivros.Application.Services.Interfaces;
-using GerenciadorLivros.Application.ViewModels;
+﻿using GerenciadorLivros.Application.Services.Interfaces;
 using GerenciadorLivros.Infrastructure.Persistence;
 
 namespace GerenciadorLivros.Application.Services.Implementations
@@ -13,7 +10,10 @@ namespace GerenciadorLivros.Application.Services.Implementations
         {
             _dbContext = dbContext;
         }
-        public int Create(NewBookInputModel inputModel)
+
+        // comentado, porque será usado no padrão CQRS (MediatR)
+
+        /*public int Create(NewBookInputModel inputModel)
         {
             var book = new Book(inputModel.Title, inputModel.Author, inputModel.ISBN, inputModel.YearPublicacion);
 
@@ -59,6 +59,6 @@ namespace GerenciadorLivros.Application.Services.Implementations
                 book.Status
                 );
             return bookDetailsViewModel;
-        }
+        }*/
     }
 }

@@ -1,13 +1,12 @@
-﻿using GerenciadorLivros.Application.InputModels;
-using GerenciadorLivros.Application.ViewModels;
-
-namespace GerenciadorLivros.Application.Services.Interfaces
+﻿namespace GerenciadorLivros.Application.Services.Interfaces
 {
     public interface IBookService
     {
-        List<BookViewModel> GetAll(string query);
-        BookDetailsViewModel GetById(int id);
-        int Create(NewBookInputModel inputModel);        
-        void Delete(int id);
+        // comentado, porque será usado no padrão CQRS (MediatR)
+
+        //List<BookViewModel> GetAll(string query);
+        //BookDetailsViewModel GetById(int id);
+        //int Create(NewBookInputModel inputModel);        
+        //void Delete(int id);
     }
 }

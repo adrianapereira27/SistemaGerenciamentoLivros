@@ -15,7 +15,9 @@ namespace GerenciadorLivros.Application.Services.Implementations
             _dbContext = dbContext;
         }
 
-        public int Create(NewUserInputModel inputModel)
+        // comentado, porque será usado no padrão CQRS (MediatR)
+
+        /*public int Create(NewUserInputModel inputModel)
         {
             var user = new User(inputModel.Name, inputModel.Email);
 
@@ -32,6 +34,6 @@ namespace GerenciadorLivros.Application.Services.Implementations
             if (user == null) return null;
             
             return new UserDetailsViewModel(user.Name, user.Email);
-        }
+        }*/
     }
 }

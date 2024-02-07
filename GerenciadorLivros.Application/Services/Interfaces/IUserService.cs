@@ -5,7 +5,9 @@ namespace GerenciadorLivros.Application.Services.Interfaces
 {
     public interface IUserService
     {
-        UserDetailsViewModel GetById(int id);
-        int Create(NewUserInputModel inputModel);
+        // comentado, porque será usado no padrão CQRS (MediatR)
+
+        //UserDetailsViewModel GetById(int id);
+        //int Create(NewUserInputModel inputModel);
     }
 }

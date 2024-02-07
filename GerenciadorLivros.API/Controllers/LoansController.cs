@@ -1,5 +1,9 @@
-﻿using GerenciadorLivros.Application.InputModels;
-using GerenciadorLivros.Application.Services.Interfaces;
+﻿using GerenciadorLivros.Application.Commands.CreateLoan;
+using GerenciadorLivros.Application.Commands.UpdateLoan;
+using GerenciadorLivros.Application.InputModels;
+using GerenciadorLivros.Application.Queries.GetAllLoans;
+using GerenciadorLivros.Application.Queries.GetLoanById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorLivros.API.Controllers
@@ -7,25 +11,37 @@ namespace GerenciadorLivros.API.Controllers
     [Route("api/loans")]
     public class LoansController : Controller
     {
-        private readonly ILoanService _loanService;
+        /*private readonly ILoanService _loanService;
         public LoansController(ILoanService loanService)
         {
             _loanService = loanService;
+        }*/
+
+        private readonly IMediator _mediator;
+
+        public LoansController(IMediator mediator)
+        {
+            _mediator = mediator;
         }
 
         // api/loans?query=net core
         [HttpGet]
-        public IActionResult Get(string query)
+        public async Task<IActionResult> Get()
         {
-            var loan = _loanService.GetAll(query);
+            var query = new GetAllLoansQuery();
 
-            return Ok(loan);
+            var loans = await _mediator.Send(query);
+
+            return Ok(loans);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var loan = _loanService.GetById(id);
+            var query = new GetLoanByIdQuery(id);
+
+            var loan = _mediator.Send(query);
+
             if (loan == null)
             {
                 return NotFound();
@@ -35,17 +51,17 @@ namespace GerenciadorLivros.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] NewLoanInputModel loanModel)
+        public async Task<IActionResult> Post([FromBody] CreateLoanCommand command)
         {
-            _loanService.Create(loanModel);
+            var id = await _mediator.Send(command);  
 
-            return NoContent();
+            return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateLoanInputModel loanModel)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateLoanCommand command)
         {
-            _loanService.Update(loanModel);
+            await _mediator.Send(command);
 
             return NoContent();
         }
