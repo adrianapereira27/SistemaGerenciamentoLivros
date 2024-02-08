@@ -1,6 +1,5 @@
 ﻿using GerenciadorLivros.Application.Commands.CreateLoan;
 using GerenciadorLivros.Application.Commands.UpdateLoan;
-using GerenciadorLivros.Application.InputModels;
 using GerenciadorLivros.Application.Queries.GetAllLoans;
 using GerenciadorLivros.Application.Queries.GetLoanById;
 using MediatR;
@@ -53,7 +52,7 @@ namespace GerenciadorLivros.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateLoanCommand command)
         {
-            var id = await _mediator.Send(command);  
+            var id = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }

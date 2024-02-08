@@ -1,9 +1,7 @@
 ﻿using GerenciadorLivros.Application.Commands.DeleteBook;
 using GerenciadorLivros.Application.Commands.InsertBook;
-using GerenciadorLivros.Application.InputModels;
 using GerenciadorLivros.Application.Queries.GetAllBooks;
 using GerenciadorLivros.Application.Queries.GetBookById;
-using GerenciadorLivros.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +26,7 @@ namespace GerenciadorLivros.API.Controllers
         // api/books?query=net core
         [HttpGet]
         public async Task<IActionResult> Get(string query)
-        {            
+        {
             var getAllBooksQuery = new GetAllBooksQuery(query);
 
             var book = await _mediator.Send(getAllBooksQuery);
@@ -41,7 +39,7 @@ namespace GerenciadorLivros.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var query = new GetBookByIdQuery(id);
-            
+
             var book = await _mediator.Send(query);
 
             if (book == null)
@@ -57,7 +55,7 @@ namespace GerenciadorLivros.API.Controllers
             if (command.Title.Length > 50)
             {
                 return BadRequest();
-            }            
+            }
             var id = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetById), new { id = id }, command);

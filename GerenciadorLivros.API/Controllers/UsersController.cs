@@ -1,8 +1,6 @@
 ﻿using GerenciadorLivros.API.Models;
 using GerenciadorLivros.Application.Commands.InsertUser;
-using GerenciadorLivros.Application.InputModels;
 using GerenciadorLivros.Application.Queries.GetUserById;
-using GerenciadorLivros.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +8,7 @@ namespace GerenciadorLivros.API.Controllers
 {
     [Route("api/users")]
     public class UsersController : ControllerBase
-    {        
+    {
         /*private readonly IUserService _userService;
         public UsersController(IUserService userService)
         {
@@ -55,9 +53,9 @@ namespace GerenciadorLivros.API.Controllers
         public IActionResult Login(int id, [FromBody] LoginModel loginModel)
         {
             // TODO: Para módulo de autenticação e autorização
-                        
+
             return NoContent();
         }
-                                
+
     }
 }

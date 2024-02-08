@@ -1,6 +1,6 @@
-using GerenciadorLivros.Application.Services.Implementations;
-using GerenciadorLivros.Application.Services.Interfaces;
+using GerenciadorLivros.Core.Repositories;
 using GerenciadorLivros.Infrastructure.Persistence;
+using GerenciadorLivros.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -12,9 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LibraryCs"); // LibraryCs está declarado no appsettings.json
 builder.Services.AddDbContext<GerenciadorLivrosDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ILoanService, LoanService>();
+//builder.Services.AddScoped<IBookService, BookService>();   // usado no padrão de arquitetura limpa (substituído pelo padrão repository)
+//builder.Services.AddScoped<IUserService, UserService>();   // usado no padrão de arquitetura limpa (substituído pelo padrão repository)
+//builder.Services.AddScoped<ILoanService, LoanService>();   // usado no padrão de arquitetura limpa (substituído pelo padrão repository)
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();   // padrão repository
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();   // padrão repository
+builder.Services.AddScoped<IUserRepository, UserRepository>();   // padrão repository
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
