@@ -1,6 +1,10 @@
+using GerenciadorLivros.API;
+using GerenciadorLivros.API.Filters;
+using GerenciadorLivros.Application.Commands.InsertBook;
 using GerenciadorLivros.Core.Repositories;
 using GerenciadorLivros.Infrastructure.Persistence;
 using GerenciadorLivros.Infrastructure.Persistence.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -20,7 +24,10 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();   // padrão repos
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();   // padrão repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();   // padrão repository
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));  // validationFilter
+
+builder.Services.AddApplication();     // classe de configuração
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
