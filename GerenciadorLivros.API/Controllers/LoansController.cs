@@ -3,19 +3,15 @@ using GerenciadorLivros.Application.Commands.UpdateLoan;
 using GerenciadorLivros.Application.Queries.GetAllLoans;
 using GerenciadorLivros.Application.Queries.GetLoanById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorLivros.API.Controllers
 {
     [Route("api/loans")]
+    [Authorize]    // annotation que indica que os métodos precisam de um usuário autorizado para acessar
     public class LoansController : Controller
-    {
-        /*private readonly ILoanService _loanService;
-        public LoansController(ILoanService loanService)
-        {
-            _loanService = loanService;
-        }*/
-
+    {     
         private readonly IMediator _mediator;
 
         public LoansController(IMediator mediator)

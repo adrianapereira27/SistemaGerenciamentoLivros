@@ -1,20 +1,16 @@
-﻿using GerenciadorLivros.API.Models;
-using GerenciadorLivros.Application.Commands.InsertUser;
+﻿using GerenciadorLivros.Application.Commands.InsertUser;
+using GerenciadorLivros.Application.Commands.LoginUser;
 using GerenciadorLivros.Application.Queries.GetUserById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorLivros.API.Controllers
 {
     [Route("api/users")]
+    [Authorize]    // annotation que indica que os métodos precisam de um usuário autorizado para acessar
     public class UsersController : ControllerBase
     {
-        /*private readonly IUserService _userService;
-        public UsersController(IUserService userService)
-        {
-            _userService = userService;
-        }*/
-
         private readonly IMediator _mediator;
         public UsersController(IMediator mediator)
         {
@@ -36,6 +32,7 @@ namespace GerenciadorLivros.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]      // permite acesso anônimo (sobrescreve a annotation Authorize)
         public async Task<IActionResult> Post([FromBody] InsertUserCommand command)
         {
             if (command.Name.Length > 50)
@@ -48,13 +45,19 @@ namespace GerenciadorLivros.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
-        // api/users/2
-        [HttpPut("{id}/login")]
-        public IActionResult Login(int id, [FromBody] LoginModel loginModel)
+        // api/users/login
+        [HttpPut("login")]
+        [AllowAnonymous]      // permite acesso anônimo (sobrescreve a annotation Authorize)
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
-            // TODO: Para módulo de autenticação e autorização
+            var loginUserViewModel = await _mediator.Send(command);
 
-            return NoContent();
+            if (loginUserViewModel == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(loginUserViewModel);
         }
 
     }

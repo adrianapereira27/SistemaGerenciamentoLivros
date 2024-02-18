@@ -4,6 +4,7 @@ using GerenciadorLivros.Application.Commands.CreateLoan;
 using GerenciadorLivros.Application.Commands.DeleteBook;
 using GerenciadorLivros.Application.Commands.InsertBook;
 using GerenciadorLivros.Application.Commands.InsertUser;
+using GerenciadorLivros.Application.Commands.LoginUser;
 using GerenciadorLivros.Application.Commands.UpdateLoan;
 using GerenciadorLivros.Application.Queries.GetAllBooks;
 using GerenciadorLivros.Application.Queries.GetAllLoans;
@@ -13,7 +14,6 @@ using GerenciadorLivros.Application.Queries.GetUserById;
 using GerenciadorLivros.Application.ViewModels;
 using GerenciadorLivros.Core.DTOs;
 using MediatR;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace GerenciadorLivros.API
@@ -44,6 +44,7 @@ namespace GerenciadorLivros.API
             services.AddScoped<IRequestHandler<UpdateLoanCommand, Unit>, UpdateLoanCommandHandler>();
             services.AddScoped<IRequestHandler<GetAllLoansQuery, List<LoanDTO>>, GetAllLoansQueryHandler>();
             services.AddScoped<IRequestHandler<GetLoanByIdQuery, LoanDetailsViewModel>, GetLoanByIdQueryHandler>();
+            services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserViewModel>, LoginUserCommandHandler>();
             return services;
         }
         private static IServiceCollection AddValidator(this IServiceCollection services)

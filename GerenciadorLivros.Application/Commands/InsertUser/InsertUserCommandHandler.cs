@@ -1,24 +1,28 @@
 ﻿using GerenciadorLivros.API.Entities;
 using GerenciadorLivros.Core.Repositories;
+using GerenciadorLivros.Core.Services;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorLivros.Application.Commands.InsertUser
 {
     public class InsertUserCommandHandler : IRequestHandler<InsertUserCommand, int>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuthService _authService;
 
-        public InsertUserCommandHandler(IUserRepository userRepository)
+        public InsertUserCommandHandler(IUserRepository userRepository, IAuthService authService)
         {
             _userRepository = userRepository;
+            _authService = authService;
         }
 
         public async Task<int> Handle(InsertUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User(request.Name, request.Email);
+            var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            await _userRepository.AddAsync(user);            
+            var user = new User(request.Name, request.Email, passwordHash, request.Role);
+
+            await _userRepository.AddAsync(user);
 
             return user.Id;
         }
